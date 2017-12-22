@@ -21,7 +21,6 @@
 */
 #include <covscript/exceptions.hpp>
 #include "sqlite3.h"
-#include "sqlite3.c"
 #include <utility>
 #include <string>
 #include <memory>
