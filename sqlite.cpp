@@ -19,9 +19,11 @@
 * Github: https://github.com/mikecovlee
 */
 #include <sqlite/sqlite.hpp>
-#include <covscript/extension.hpp>
 #include <covscript/cni.hpp>
+#include <covscript/extension.hpp>
+#include <covscript/extensions/char.hpp>
 #include <covscript/extensions/string.hpp>
+#include <covscript/extensions/exception.hpp>
 
 static cs::extension sqlite_ext;
 static cs::extension sqlite_stmt_ext;
@@ -151,7 +153,9 @@ namespace sqlite_cs_ext {
 
 	void init()
 	{
+		char_cs_ext::init();
 		string_cs_ext::init();
+		except_cs_ext::init();
 		sqlite_ext.add_var("statement", var::make_protect<extension_t>(sqlite_stmt_ext_shared));
 		sqlite_ext.add_var("integer", var::make_constant<sqlite::data_type>(sqlite::data_type::integer));
 		sqlite_ext.add_var("real", var::make_constant<sqlite::data_type>(sqlite::data_type::real));
