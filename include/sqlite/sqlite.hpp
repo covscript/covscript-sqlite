@@ -15,7 +15,7 @@
 * You should have received a copy of the GNU Affero General Public License
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *
-* Copyright (C) 2017 Michael Lee(李登淳)
+* Copyright (C) 2018 Michael Lee(李登淳)
 * Email: mikecovlee@163.com
 * Github: https://github.com/mikecovlee
 */
@@ -75,7 +75,7 @@ namespace cs_impl {
 			}
 		};
 
-		std::shared_ptr<db_holder> m_db;
+		std::shared_ptr <db_holder> m_db;
 	public:
 		enum class data_type {
 			integer, real, text
@@ -84,9 +84,9 @@ namespace cs_impl {
 		class statement final {
 			friend class sqlite;
 
-			std::shared_ptr<stmt_holder> m_stmt;
+			std::shared_ptr <stmt_holder> m_stmt;
 
-			explicit statement(const std::shared_ptr<db_holder> &db, const std::string &sql) : m_stmt(
+			explicit statement(const std::shared_ptr <db_holder> &db, const std::string &sql) : m_stmt(
 				    std::make_shared<stmt_holder>(db->db, sql.c_str(), sql.size())) {}
 
 		public:
