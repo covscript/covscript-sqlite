@@ -22,6 +22,7 @@
 #include <covscript/cni.hpp>
 #include <covscript/extension.hpp>
 #include <covscript/extensions/char.hpp>
+#include <covscript/extensions/array.hpp>
 #include <covscript/extensions/string.hpp>
 #include <covscript/extensions/exception.hpp>
 
@@ -154,6 +155,7 @@ namespace sqlite_cs_ext {
 	void init()
 	{
 		char_cs_ext::init();
+		array_cs_ext::init();
 		string_cs_ext::init();
 		except_cs_ext::init();
 		sqlite_ext.add_var("statement", var::make_protect<extension_t>(sqlite_stmt_ext_shared));
