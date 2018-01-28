@@ -19,11 +19,11 @@
 * Email: mikecovlee@163.com
 * Github: https://github.com/mikecovlee
 */
-#include <covscript/exceptions.hpp>
 #include "sqlite3.h"
 #include <utility>
 #include <string>
 #include <memory>
+#include <covscript/exceptions.hpp>
 
 namespace cs_impl {
 	class sqlite final {
