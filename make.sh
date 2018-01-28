@@ -21,7 +21,7 @@ function set_flag() {
     fi
 }
 
-COMMON_FLAGS="-I ../include -shared -fPIC -s -O3 -ldl"
+COMMON_FLAGS="-I ../include -shared -fPIC -s -O3 -ldl -lpthread"
 DEFAULT_CXXFLAGS="-std=c++11 $COMMON_FLAGS"
 DEFAULT_CFLAGS="$COMMON_FLAGS"
 DEFAULT_LDFLAGS=""
@@ -49,4 +49,3 @@ mkdir -p imports
 $CC $CFLAGS -c ../sqlite3.c
 $CXX $CXXFLAGS ../sqlite.cpp ./sqlite3.o $LDFLAGS -o ./imports/sqlite.cse
 rm ./sqlite3.o
-
