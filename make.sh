@@ -21,7 +21,7 @@ function set_flag() {
     fi
 }
 
-COMMON_FLAGS="-I ../include -shared -fPIC -s -O3 -ldl -lpthread"
+COMMON_FLAGS="-I ../include -shared -fPIC -s -O3 -ldl -lrt -lpthread"
 DEFAULT_CXXFLAGS="-std=c++11 $COMMON_FLAGS"
 DEFAULT_CFLAGS="$COMMON_FLAGS"
 DEFAULT_LDFLAGS=""
