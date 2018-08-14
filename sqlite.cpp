@@ -23,8 +23,8 @@
 
 static cs::extension sqlite_ext;
 static cs::extension sqlite_stmt_ext;
-static cs::extension_t sqlite_ext_shared = cs::make_shared_extension(sqlite_ext);
-static cs::extension_t sqlite_stmt_ext_shared = cs::make_shared_extension(sqlite_stmt_ext);
+static cs::extension_t sqlite_ext_shared = cs::make_shared_namespace(sqlite_ext);
+static cs::extension_t sqlite_stmt_ext_shared = cs::make_shared_namespace(sqlite_stmt_ext);
 namespace cs_impl {
 	template<>
 	cs::extension_t &get_ext<cs_impl::sqlite>()
