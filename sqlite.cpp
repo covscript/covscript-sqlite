@@ -18,24 +18,22 @@
 * Github: https://github.com/mikecovlee
 */
 #include <sqlite/sqlite.hpp>
-#include <covscript/cni.hpp>
 #include <covscript/extension.hpp>
 
-static cs::extension sqlite_ext;
-static cs::extension sqlite_stmt_ext;
-static cs::extension_t sqlite_ext_shared = cs::make_shared_namespace(sqlite_ext);
-static cs::extension_t sqlite_stmt_ext_shared = cs::make_shared_namespace(sqlite_stmt_ext);
+static cs::namespace_t sqlite_db_ext=cs::make_shared_namespace<cs::name_space>();
+static cs::namespace_t sqlite_stmt_ext=cs::make_shared_namespace<cs::name_space>();
+
 namespace cs_impl {
 	template<>
-	cs::extension_t &get_ext<cs_impl::sqlite>()
+	cs::namespace_t &get_ext<cs_impl::sqlite>()
 	{
-		return sqlite_ext_shared;
+		return sqlite_db_ext;
 	}
 
 	template<>
-	cs::extension_t &get_ext<cs_impl::sqlite::statement>()
+	cs::namespace_t &get_ext<cs_impl::sqlite::statement>()
 	{
-		return sqlite_stmt_ext_shared;
+		return sqlite_stmt_ext;
 	}
 
 	template<>
@@ -147,34 +145,41 @@ namespace sqlite_cs_ext {
 		return db.prepare(sql);
 	}
 
-	void init()
+	void init(name_space* ns)
 	{
-		sqlite_ext.add_var("statement", var::make_protect<extension_t>(sqlite_stmt_ext_shared));
-		sqlite_ext.add_var("integer", var::make_constant<sqlite::data_type>(sqlite::data_type::integer));
-		sqlite_ext.add_var("real", var::make_constant<sqlite::data_type>(sqlite::data_type::real));
-		sqlite_ext.add_var("text", var::make_constant<sqlite::data_type>(sqlite::data_type::text));
-		sqlite_ext.add_var("open", var::make_protect<callable>(cni(open)));
-		sqlite_ext.add_var("prepare", var::make_protect<callable>(cni(prepare)));
-		sqlite_stmt_ext.add_var("done", var::make_protect<callable>(cni(done)));
-		sqlite_stmt_ext.add_var("reset", var::make_protect<callable>(cni(reset)));
-		sqlite_stmt_ext.add_var("exec", var::make_protect<callable>(cni(exec)));
-		sqlite_stmt_ext.add_var("column_count", var::make_protect<callable>(cni(column_count)));
-		sqlite_stmt_ext.add_var("column_type", var::make_protect<callable>(cni(column_type)));
-		sqlite_stmt_ext.add_var("column_name", var::make_protect<callable>(cni(column_name)));
-		sqlite_stmt_ext.add_var("column_decltype", var::make_protect<callable>(cni(column_decltype)));
-		sqlite_stmt_ext.add_var("column_integer", var::make_protect<callable>(cni(column_integer)));
-		sqlite_stmt_ext.add_var("column_real", var::make_protect<callable>(cni(column_real)));
-		sqlite_stmt_ext.add_var("column_text", var::make_protect<callable>(cni(column_text)));
-		sqlite_stmt_ext.add_var("bind_param_count", var::make_protect<callable>(cni(bind_param_count)));
-		sqlite_stmt_ext.add_var("bind_integer", var::make_protect<callable>(cni(bind_integer)));
-		sqlite_stmt_ext.add_var("bind_real", var::make_protect<callable>(cni(bind_real)));
-		sqlite_stmt_ext.add_var("bind_text", var::make_protect<callable>(cni(bind_text)));
-		sqlite_stmt_ext.add_var("clear_bindings", var::make_protect<callable>(cni(clear_bindings)));
+		(*ns)
+		.add_var("db", make_namespace(sqlite_db_ext))
+		.add_var("statement", make_namespace(sqlite_stmt_ext))
+		.add_var("integer", var::make_constant<sqlite::data_type>(sqlite::data_type::integer))
+		.add_var("real", var::make_constant<sqlite::data_type>(sqlite::data_type::real))
+		.add_var("text", var::make_constant<sqlite::data_type>(sqlite::data_type::text))
+		.add_var("open", make_cni(open))
+		.add_var("prepare", make_cni(prepare));
+		(*sqlite_db_ext)
+		.add_var("integer", var::make_constant<sqlite::data_type>(sqlite::data_type::integer))
+		.add_var("real", var::make_constant<sqlite::data_type>(sqlite::data_type::real))
+		.add_var("text", var::make_constant<sqlite::data_type>(sqlite::data_type::text))
+		.add_var("prepare", make_cni(prepare));
+		(*sqlite_stmt_ext)
+		.add_var("done", make_cni(done))
+		.add_var("reset", make_cni(reset))
+		.add_var("exec", make_cni(exec))
+		.add_var("column_count", make_cni(column_count))
+		.add_var("column_type", make_cni(column_type))
+		.add_var("column_name", make_cni(column_name))
+		.add_var("column_decltype", make_cni(column_decltype))
+		.add_var("column_integer", make_cni(column_integer))
+		.add_var("column_real", make_cni(column_real))
+		.add_var("column_text", make_cni(column_text))
+		.add_var("bind_param_count", make_cni(bind_param_count))
+		.add_var("bind_integer", make_cni(bind_integer))
+		.add_var("bind_real", make_cni(bind_real))
+		.add_var("bind_text", make_cni(bind_text))
+		.add_var("clear_bindings", make_cni(clear_bindings));
 	}
 }
 
-cs::extension *cs_extension()
+void cs_extension_main(cs::name_space* ns)
 {
-	sqlite_cs_ext::init();
-	return &sqlite_ext;
+	sqlite_cs_ext::init(ns);
 }
