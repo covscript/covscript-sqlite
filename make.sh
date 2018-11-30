@@ -21,10 +21,10 @@ function set_flag() {
     fi
 }
 
-COMMON_FLAGS="-I ../include -fPIC -O3"
+COMMON_FLAGS="-I$CS_DEV_PATH/include -I../include -fPIC -O3"
 DEFAULT_CXXFLAGS="-std=c++11 -shared -s $COMMON_FLAGS"
 DEFAULT_CFLAGS="$COMMON_FLAGS"
-DEFAULT_LDFLAGS="-lpthread"
+DEFAULT_LDFLAGS="-L$CS_DEV_PATH/lib -lcovscript -lpthread"
 DEFAULT_CXX=g++
 DEFAULT_CC=gcc
 
