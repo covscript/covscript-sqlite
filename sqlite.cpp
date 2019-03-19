@@ -18,7 +18,6 @@
 * Github: https://github.com/mikecovlee
 */
 #include <sqlite/sqlite.hpp>
-#include <covscript/dll.hpp>
 
 static cs::namespace_t sqlite_db_ext=cs::make_shared_namespace<cs::name_space>();
 static cs::namespace_t sqlite_stmt_ext=cs::make_shared_namespace<cs::name_space>();

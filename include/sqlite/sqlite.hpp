@@ -22,7 +22,7 @@
 #include <utility>
 #include <string>
 #include <memory>
-#include <covscript/exceptions.hpp>
+#include <covscript/dll.hpp>
 
 namespace cs_impl {
 	class sqlite final {
