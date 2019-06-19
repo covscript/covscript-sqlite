@@ -36,6 +36,10 @@ add_library(sqlite SHARED sqlite.cpp sqlite3.c)
 
 target_link_libraries(sqlite covscript)
 
+if (UNIX)
+    target_link_libraries(sqlite pthread)
+endif ()
+
 set_target_properties(sqlite PROPERTIES OUTPUT_NAME sqlite)
 set_target_properties(sqlite PROPERTIES PREFIX "")
 set_target_properties(sqlite PROPERTIES SUFFIX ".cse")
