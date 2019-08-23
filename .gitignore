@@ -39,3 +39,5 @@ include/covscript
 
 .vscode/
 cmake-build/
+
+.DS_Store
