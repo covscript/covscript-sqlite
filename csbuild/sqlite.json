@@ -1,0 +1,9 @@
+{
+    "Type": "Extension",
+    "Name": "sqlite",
+    "Info": "SQLite3 Extension",
+    "Author": "CovScript Organization",
+    "Version": "1.0.1",
+    "Target": "build/imports/sqlite.cse",
+    "Dependencies": []
+}
