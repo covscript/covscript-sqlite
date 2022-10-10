@@ -25,6 +25,7 @@
 #include <string>
 #include <memory>
 #include <covscript/dll.hpp>
+#include <covscript/cni.hpp>
 
 namespace cs_impl {
 	class sqlite final {
