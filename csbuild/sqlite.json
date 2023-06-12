@@ -3,7 +3,7 @@
     "Name": "sqlite",
     "Info": "SQLite3 Extension",
     "Author": "CovScript Organization",
-    "Version": "3.38.5_v1",
+    "Version": "3.42.0_v1",
     "Target": "build/imports/sqlite.cse",
     "Dependencies": []
 }
