@@ -78,3 +78,18 @@ jobs:
           export PATH="${{ steps.msys2.outputs.msys2-location }}/ucrt64/bin:${PATH}"
           export CS_DEV_PATH="$(cygpath -u "${{ steps.sdk.outputs.cs_home }}")/"
           bash csbuild/make.sh
+
+      - name: Run tests (Linux / macOS)
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          export PATH="${{ steps.sdk.outputs.cs_home }}/bin:$PATH"
+          cs -i build/imports tests/test_crud.csc
+
+      - name: Run tests (Windows)
+        if: runner.os == 'Windows'
+        shell: bash
+        run: |
+          CS_HOME="${{ steps.sdk.outputs.cs_home }}"
+          export PATH="${CS_HOME}/bin:$PATH"
+          cs -i build/imports tests/test_crud.csc
